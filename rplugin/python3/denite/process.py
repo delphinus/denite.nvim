@@ -9,6 +9,7 @@ from threading import Thread
 from queue import Queue
 from time import time, sleep
 import os
+import denite.util
 
 
 class Process(object):
@@ -35,8 +36,11 @@ class Process(object):
     def kill(self):
         if not self.__proc:
             return
-        self.__proc.kill()
-        self.__proc.wait()
+        try:
+            self.__proc.kill()
+            self.__proc.wait()
+        except ProcessLookupError as err:
+            pass
         self.__proc = None
         self.__queue_out = None
         self.__thread.join(1.0)
