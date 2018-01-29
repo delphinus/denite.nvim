@@ -35,8 +35,11 @@ class Process(object):
     def kill(self):
         if not self._proc:
             return
-        self._proc.kill()
-        self._proc.wait()
+        try:
+            self._proc.kill()
+            self._proc.wait()
+        except ProcessLookupError:
+            pass
         self._proc = None
         self._queue_out = None
         self._thread.join(1.0)
