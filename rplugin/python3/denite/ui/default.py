@@ -431,6 +431,7 @@ class Default(object):
             'buffer_name': self._context['buffer_name'],
             'line_cursor': cursor_location,
             'line_total': self._candidates_len,
+            'is_async': self._denite.is_async(),
         }
         if status != self._prev_status:
             self._bufvars['denite_statusline'] = status
